@@ -1,6 +1,4 @@
-const apikey = '0d952cd1b70bd6d31e26292adb3942a0';
 const difKelvin = 273.15;
-const urlBase = 'https://api.openweathermap.org/data/2.5/weather';
 
 document.getElementById('botonBusqueda').addEventListener('click', () => {
     const ciudad = document.getElementById('ciudadEntrada').value;
@@ -13,11 +11,13 @@ document.getElementById('botonBusqueda').addEventListener('click', () => {
 
 
 function fetchDatosClima(ciudad){
-    const url = `${urlBase}?q=${ciudad}&appid=${apikey}`;
-    fetch(url)
+    const urlBackend = `http://localhost:3000/clima/${ciudad}`;
+    fetch(urlBackend)
         .then(response => response.json())
         .then(data => mostrarDiaClima(data))
+        .catch(error => console.error('Error al obtener los datos del clima:', error));
 }
+
 
 function mostrarDiaClima(data){
     const divClima = document.getElementById('datosClima');
